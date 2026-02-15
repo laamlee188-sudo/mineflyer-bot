@@ -2,35 +2,28 @@ import mineflayer from 'mineflayer';
 import express from 'express';
 
 const app = express();
-app.get('/', (req, res) => res.send('Bot đang chạy!'));
-app.listen(3000, () => console.log('Cổng 3000 đã mở'));
+app.get('/', (req, res) => res.send('Bot Online!'));
+app.listen(3000);
 
-const botOptions = {
-    host: 'anhchaovu.aternos.me',
-    port: 53131, // Kiểm tra lại cổng này trên Aternos của bạn
-    username: 'AFKBot',
-    version: false // Để bot tự động dò phiên bản cho nhanh
-};
-
-function createBot() {
-    const bot = mineflayer.createBot(botOptions);
+const createBot = () => {
+    const bot = mineflayer.createBot({
+        host: 'anhchaovu.aternos.me',
+        port: 33107, // Đã cập nhật theo cổng của bạn
+        username: 'AFKBot',
+        version: false 
+    });
 
     bot.on('spawn', () => {
-        console.log('✅ Bot đã vào server!');
-        bot.chat('Bot AFK đã sẵn sàng!');
+        console.log('✅ Đã vào game thành công!');
+        bot.chat('Bot AFK đã online!');
     });
-
+    
     bot.on('end', () => {
-        console.log('❌ Bot mất kết nối, đang thử lại sau 5 giây...');
+        console.log('❌ Mất kết nối, đang thử lại...');
         setTimeout(createBot, 5000);
     });
-
-    bot.on('error', (err) => console.log('Lỗi kết nối: ' + err.message));
-}
+    
+    bot.on('error', (err) => console.log('Lỗi:', err.message));
+};
 
 createBot();
-app.listen(config.features.webDashboard.port, () => {
-  console.log(`🌐 Dashboard: http://localhost:${config.features.webDashboard.port}`);
-});
-
-createMyBot();
