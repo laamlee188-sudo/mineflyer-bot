@@ -1,46 +1,28 @@
-import mineflayer from 'mineflayer';
-import express from 'express';
-
-// --- CẤU HÌNH BOT ---
-const config = {
-  server: {
-    host: "anhchaovu.aternos.me",
-    port: 33107,
-    version: "1.21.1", // Đảm bảo trùng với bản server
-    auth: "offline"
+{
+  "name": "afk-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "mineflayer": "latest",
+    "express": "latest"
   },
-  bot: { baseUsername: "AFKBot" },
-  features: {
-    autoReconnect: { enabled: true, delay: 10000 }, // Đợi 10s để Aternos kịp hồi phục
-    randomUsernameOnKick: { enabled: true, length: 4 },
-    antiAfk: {
-      enabled: true,
-      minInterval: 5000,
-      maxInterval: 15000
-    },
-    autoChat: { 
-      enabled: true, 
-      interval: 60000, 
-      messages: ["Tôi là bot AFK!", "Đang treo máy để giữ server...", "Chào mọi người!"] 
-    },
-    webDashboard: { port: 3000 }
+  "scripts": {
+    "start": "node index.js"
   }
-};
-
-let bot;
-let currentUsername = config.bot.baseUsername;
-
-function generateRandomSuffix(length) {
-  return Math.random().toString(36).substring(2, 2 + length);
+}{
+  "name": "afk-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "mineflayer": "latest",
+    "express": "latest"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
 }
-
-function createMyBot() {
-  console.log(`🚀 Đang kết nối: ${currentUsername}`);
-  
-  bot = mineflayer.createBot({
-    host: config.server.host,
-    port: config.server.port,
-    username: currentUsername,
     version: config.server.version,
     auth: config.server.auth
   });
